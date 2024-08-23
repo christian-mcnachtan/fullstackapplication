@@ -31,8 +31,8 @@ jobs:
       working-directory: ./client
 
     - name: 'Zip build folder'
-      run: zip -r build.zip ./client/build
-      working-directory: ./client
+      run: zip -r build.zip build
+      working-directory: ./client/build
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
