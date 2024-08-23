@@ -1,0 +1,11 @@
+# .gitignore in project root
+node_modules/
+.env
+
+# Server-specific ignores
+server/node_modules/
+server/.env
+
+# Client-specific ignores
+client/node_modules/
+client/.env
