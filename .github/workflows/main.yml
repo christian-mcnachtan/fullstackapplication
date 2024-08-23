@@ -18,11 +18,17 @@ jobs:
       with:
         node-version: '18.x'
 
-    - name: 'Install dependencies'
+    - name: 'Install Server Dependencies'
       run: npm install
+      working-directory: ./server
+
+    - name: 'Install Client Dependencies'
+      run: npm install
+      working-directory: ./client
 
     - name: 'Build the React app'
-      run: npm run build --prefix client
+      run: npm run build
+      working-directory: ./client
 
     - name: 'Zip build folder'
       run: zip -r build.zip ./client/build
@@ -33,3 +39,4 @@ jobs:
         app-name: 'fullstackapplication'
         publish-profile: ${{ secrets.azurePublishSettings }}
         package: ./client/build.zip
+
