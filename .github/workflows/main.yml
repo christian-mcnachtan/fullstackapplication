@@ -1,0 +1,35 @@
+name: Build and Deploy Node.js app to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v4
+
+    - name: 'Set up Node.js'
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: 'Install dependencies'
+      run: npm install
+
+    - name: 'Build the React app'
+      run: npm run build --prefix client
+
+    - name: 'Zip build folder'
+      run: zip -r build.zip ./client/build
+
+    - name: 'Deploy to Azure Web App'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'fullstackapplication'
+        publish-profile: ${{ secrets.azurePublishSettings }}
+        package: ./client/build.zip
