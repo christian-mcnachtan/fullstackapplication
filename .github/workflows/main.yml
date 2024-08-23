@@ -32,11 +32,13 @@ jobs:
 
     - name: 'Zip build folder'
       run: zip -r build.zip ./client/build
+      working-directory: ./client
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'fullstackapplication'
         publish-profile: ${{ secrets.azurePublishSettings }}
-        package: ./client/build.zip
+        package: './client/build.zip'
+
 
